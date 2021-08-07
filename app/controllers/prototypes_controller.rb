@@ -1,7 +1,8 @@
 class PrototypesController < ApplicationController
 
   def index
-    
+    query = "SELECT * FROM prototypes ORDER BY created_at desc"
+    @prototypes = Prototype.find_by_sql(query)
   end
 
   def new
