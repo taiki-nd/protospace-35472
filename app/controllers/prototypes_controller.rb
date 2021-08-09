@@ -1,7 +1,7 @@
 class PrototypesController < ApplicationController
 
   before_action :authenticate_user!, only: [:edit, :destroy, :new]
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: :index
   def index
     query = "SELECT * FROM prototypes ORDER BY created_at desc"
     @prototypes = Prototype.find_by_sql(query)
@@ -38,7 +38,7 @@ class PrototypesController < ApplicationController
     if prototype.update(prototype_params)
       redirect_to action: :show
     else
-      render :edit
+      render action: :edit
     end
   end
 
@@ -54,6 +54,7 @@ class PrototypesController < ApplicationController
   end
 
   def move_to_index
+    @prototype = Prototype.find(params[:id])
     unless user_signed_in?
       redirect_to action: :index
     end
