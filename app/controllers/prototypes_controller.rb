@@ -1,7 +1,7 @@
 class PrototypesController < ApplicationController
 
   before_action :authenticate_user!, only: [:edit, :destroy, :new]
-  before_action :move_to_index, except: :index
+  before_action :move_to_index, except: [:index, :show]
   def index
     query = "SELECT * FROM prototypes ORDER BY created_at desc"
     @prototypes = Prototype.find_by_sql(query)
