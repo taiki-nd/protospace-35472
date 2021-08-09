@@ -35,6 +35,12 @@ class PrototypesController < ApplicationController
     end
   end
 
+  def destroy
+    prototype = Prototype.find(params[:id])
+    prototype.destroy
+    redirect_to action: :index
+  end
+
   private
   def prototype_params
     params.require(:prototype).permit(:image, :title, :catch_copy, :concept).merge(user_id: current_user.id)
